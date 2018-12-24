@@ -1,0 +1,41 @@
+body {
+  background: #191926;
+  color: #ddd;
+  font-family: 'Open Sans', cursive;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+form>*{
+  padding: 10px;
+  
+}
+
+form>input {
+  height: 3em;
+  background: #1f1f2b;
+  border: 1px solid #1c1c28;
+  color: inherit;
+}
+
+form>input[type='file'] {
+  padding: 0;
+}
+
+form>input[type='submit'] {
+  background: #ddd;
+  color: #333;
+}
+
+a, a:visited {
+  color: inherit;
+}

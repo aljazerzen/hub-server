@@ -1,0 +1,30 @@
+html
+  head
+    title Hub server
+    style
+      include style.css
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans",rel="stylesheet") 
+  body
+    div(class='container')
+      h1 Welcome to the Hub server
+
+      form(action='name', method='POST')
+        label You are 
+        input(type='text',disabled,value=me.ip)
+        input(type='text',name='name',placeholder='name',value=me.name)
+        input(type='submit',value='change name')
+      
+      h2 Files
+      form(action='upload', method='POST', enctype='multipart/form-data')
+        input(type='file',name='file')
+        input(type='submit',value='upload')
+      ul
+        each file in files
+          li
+            a(href="./"+file)= file
+      
+      h2 Connections
+      ul
+        each conn in connections
+          li= conn.ip + " - " + (conn.name || 'unnamed computer')
+      
