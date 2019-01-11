@@ -17,7 +17,8 @@ async function loadConnections() {
     .toString()
     .split('\n')
     .map(line => line.split(/\s+/))
-    .map(line => ({ ip: line.shift(), name: line.join(' ') }));
+    .map(line => ({ ip: line.shift(), name: line.join(' ') }))
+    .filter(conn => !!conn.ip);
 }
 
 async function saveConnections(connections) {
