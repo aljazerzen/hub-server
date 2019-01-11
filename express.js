@@ -43,13 +43,14 @@ app.use(express.static('./static'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('', async (req, res) => {
+  const ip = req.headers['x-real-ip'] || req.ip;
 
   const files = await readdir('./static');
   const connections = await loadConnections();
-  let me = connections.find(c => c.ip == req.ip);
+  let me = connections.find(c => c.ip == ip);
   
   if(!me) {
-    me = { ip: req.ip };
+    me = { ip };
     if(addConnection(connections, me)) {
       saveConnections(connections);
     }
@@ -62,8 +63,10 @@ app.get('', async (req, res) => {
 });
 
 app.all('/name', async (req, res) => {
+  const ip = req.headers['x-real-ip'] || req.ip;
+
   const connections = await loadConnections();
-  if(addConnection(connections, { ip: req.ip, name: req.body.name })) {
+  if(addConnection(connections, { ip, name: req.body.name })) {
     saveConnections(connections);
   }
 
@@ -93,4 +96,4 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   res.redirect('./');
 })
 
-app.listen(8000);
+app.listen(8008);
